@@ -1,0 +1,23 @@
+
+@CloudShop.Api_HostAddress = http://localhost:5016
+
+POST {{CloudShop.Api_HostAddress}}/products
+Content-Type: application/json
+
+{
+  "name": "Mechanical Keyboard 2",
+  "description": "Computer Keyboard",
+  "price": 2790,
+  "stockQuantity": 80
+}
+
+### Get all products
+
+GET {{CloudShop.Api_HostAddress}}/products
+Accept: application/json
+
+### Get product by ID
+
+GET {{CloudShop.Api_HostAddress}}/products/6B306A1F-EEC-46EF-929B-70AE0C44B0B8
+Accept: application/json
+

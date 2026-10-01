@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/CloudShop.Api/CloudShop.Api.csproj" />
+    <Project Path="src/CloudShop.Application/CloudShop.Application.csproj" />
+    <Project Path="src/CloudShop.Domain/CloudShop.Domain.csproj" />
+    <Project Path="src/CloudShop.Infrastructure/CloudShop.Infrastructure.csproj" />
+  </Folder>
+</Solution>
