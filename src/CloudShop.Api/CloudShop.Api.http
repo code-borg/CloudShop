@@ -5,10 +5,10 @@ POST {{CloudShop.Api_HostAddress}}/products
 Content-Type: application/json
 
 {
-  "name": "Mechanical Keyboard 2",
-  "description": "Computer Keyboard",
-  "price": 2790,
-  "stockQuantity": 80
+  "name": "Test Product",
+  "description": "Testing domain validation",
+  "price": -500,
+  "stockQuantity": 10
 }
 
 ### Get all products
@@ -21,3 +21,11 @@ Accept: application/json
 GET {{CloudShop.Api_HostAddress}}/products/6B306A1F-EEC-46EF-929B-70AE0C44B0B8
 Accept: application/json
 
+### Update product price
+
+PUT {{CloudShop.Api_HostAddress}}/products/27ED20CA-B585-47FA-A49F-3603B10FB505/price
+Content-Type: application/json
+
+{
+  "newPrice": -3099.99
+}

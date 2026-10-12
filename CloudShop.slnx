@@ -5,4 +5,7 @@
     <Project Path="src/CloudShop.Domain/CloudShop.Domain.csproj" />
     <Project Path="src/CloudShop.Infrastructure/CloudShop.Infrastructure.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/CloudShop.Api.Tests/CloudShop.Api.Tests.csproj" />
+  </Folder>
 </Solution>

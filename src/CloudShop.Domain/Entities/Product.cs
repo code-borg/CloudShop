@@ -1,4 +1,5 @@
-﻿namespace CloudShop.Domain.Entities;
+﻿using CloudShop.Domain.Exceptions;
+namespace CloudShop.Domain.Entities;
 
 public class Product
 {
@@ -21,13 +22,16 @@ public class Product
         int stockQuantity)
     {
         if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentException("Product name is required.");
+            throw new DomainException("Product name is required.");
+
+        if (string.IsNullOrWhiteSpace(description))
+            throw new DomainException("Product description is required.");
 
         if (price < 0)
-            throw new ArgumentException("Price cannot be negative.");
+            throw new DomainException("Price cannot be negative.");
 
         if (stockQuantity < 0)
-            throw new ArgumentException("Stock quantity cannot be negative.");
+            throw new DomainException("Stock quantity cannot be negative.");
 
         Id = Guid.NewGuid();
         Name = name;
@@ -35,5 +39,12 @@ public class Product
         Price = price;
         StockQuantity = stockQuantity;
         CreatedAt = DateTime.UtcNow;
+    }
+    public void ChangePrice(decimal newPrice)
+    {
+        if (newPrice < 0)
+            throw new DomainException("Price cannot be negative.");
+
+        Price = newPrice;
     }
 }

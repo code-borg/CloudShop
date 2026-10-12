@@ -25,19 +25,37 @@ public class ProductRepository : IProductRepository
     public async Task<List<Product>> GetAllAsync(
         CancellationToken cancellationToken = default)
     {
-        return await _dbContext.Products
-            .AsNoTracking()
-            .ToListAsync(cancellationToken);
+        return await SqlServerRetryPolicy.CreateReadStrategy(_dbContext).ExecuteAsync(
+            token => _dbContext.Products
+                .AsNoTracking()
+                .ToListAsync(token),
+            cancellationToken);
     }
 
     public async Task<Product?> GetByIdAsync(
     Guid id,
     CancellationToken cancellationToken = default)
     {
+        return await SqlServerRetryPolicy.CreateReadStrategy(_dbContext).ExecuteAsync(
+            token => _dbContext.Products
+                .AsNoTracking()
+                .FirstOrDefaultAsync(product => product.Id == id, token),
+            cancellationToken);
+    }
+
+    public async Task<Product?> GetByIdForUpdateAsync(
+    Guid id,
+    CancellationToken cancellationToken = default)
+    {
         return await _dbContext.Products
-            .AsNoTracking()
             .FirstOrDefaultAsync(
                 product => product.Id == id,
                 cancellationToken);
+    }
+
+    public async Task SaveChangesAsync(
+    CancellationToken cancellationToken = default)
+    {
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }
