@@ -74,7 +74,7 @@ jobs:
             "https://cloudshop-api-borg-dev-axcsbdcnasbnhafw.centralindia-01.azurewebsites.net/configuration/welcome" \
             | grep -Fq 'Hello from Azure Key Vault!'
 
-      - name: Verify Azure SQL endpoint
+      - name: Verify API and Azure SQL health
         shell: bash
         run: |
           set -o pipefail
@@ -82,7 +82,6 @@ jobs:
             --retry 5 \
             --retry-delay 10 \
             --retry-all-errors \
-            "https://cloudshop-api-borg-dev-axcsbdcnasbnhafw.centralindia-01.azurewebsites.net/products" \
-            | grep -Fq '"name":"Test Laptop"'
-
+            "https://cloudshop-api-borg-dev-axcsbdcnasbnhafw.centralindia-01.azurewebsites.net/health" \
+            | grep -Fxq 'Healthy'
 
