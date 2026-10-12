@@ -29,9 +29,12 @@ builder.Services.AddScoped<CreateProductHandler>();
 builder.Services.AddScoped<UpdateProductPriceHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
-
+builder.Services.AddHealthChecks()
+    .AddDbContextCheck<CloudShopDbContext>(
+        name: "azure-sql");
 // Build AFTER registering services
 var app = builder.Build();
+app.MapHealthChecks("/health");
 
 app.MapGet("/configuration/welcome", (IConfiguration configuration) =>
     Results.Ok(new { welcomeMessage = configuration["CloudShop:WelcomeMessage"] }));
