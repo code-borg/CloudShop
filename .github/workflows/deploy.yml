@@ -62,3 +62,25 @@ jobs:
         with:
           app-name: cloudshop-api-borg-dev
           package: ./publish
+
+      - name: Verify Key Vault endpoint
+        shell: bash
+        run: |
+	  set -o pipefail
+          curl --fail --silent --show-error \
+            --retry 5 \
+            --retry-delay 10 \
+            --retry-all-errors \
+            "https://cloudshop-api-borg-dev-axcsbdcnasbnhafw.centralindia-01.azurewebsites.net/configuration/welcome" \
+            | grep -Fq 'Hello from Azure Key Vault!'
+
+      - name: Verify Azure SQL endpoint
+        shell: bash
+        run: |
+	  set -o pipefail
+          curl --fail --silent --show-error \
+            --retry 5 \
+            --retry-delay 10 \
+            --retry-all-errors \
+            "https://cloudshop-api-borg-dev-axcsbdcnasbnhafw.centralindia-01.azurewebsites.net/products" \
+            | grep -Fq '"name":"Test Laptop"'
